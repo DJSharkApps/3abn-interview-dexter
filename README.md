@@ -1,47 +1,58 @@
 # 3ABN Interview Materials
 
-Private repository for sharing **3ABN interview** video files with **Dexter Thomas** (read-only access).
+**Public** repository for **3ABN interview** video files. Anyone can download — **no GitHub account** required.
 
 ## Contents
 
-Place interview MP4 files in the `videos/` folder (or the repo root). Large files should use **Git LFS** (see below).
+Interview MP4 files live in the `videos/` folder. Large files are stored with **Git LFS** (see below).
 
 ## For maintainers (uploading videos)
 
-1. Install [Git LFS](https://git-lfs.com/) if any single MP4 is over ~50 MB.
-2. Copy your `.mp4` files into this repo (e.g. `videos/`).
+1. Install [Git LFS](https://git-lfs.com/) (recommended for MP4s; required for files over GitHub’s ~100 MB per-file limit).
+2. Copy your `.mp4` files into `videos/`.
 3. Commit and push:
 
 ```bash
 cd /path/to/3abn-interview-dexter
-git lfs install   # once per machine, if using LFS
+git lfs install   # once per machine
 git add videos/*.mp4
 git commit -m "Add interview videos"
 git push origin main
 ```
 
-## For Dexter (downloading)
+On this Mac, the local clone is at `/Users/djshark12/GitHub/3abn-interview-dexter`.
 
-**Option A — Clone the whole repo**
+## For Dexter (and anyone) — downloading without an account
 
-```bash
-gh auth login   # or use HTTPS with a personal access token
-gh repo clone DJSharkApps/3abn-interview-dexter
-cd 3abn-interview-dexter
-git lfs pull    # if videos use Git LFS
-```
-
-**Option B — GitHub website**
+**Option A — Direct links on GitHub**
 
 1. Open https://github.com/DJSharkApps/3abn-interview-dexter
-2. Browse to each `.mp4` file and use **Download**.
+2. Go to `videos/`, open each `.mp4`, and click **Download**.
 
-**Option C — Zip from GitHub**
+**Option B — Download ZIP**
 
-Use **Code → Download ZIP** after videos are pushed (works for moderate total size; very large repos may be slow).
+1. On the repo page, click **Code → Download ZIP**
+2. Unzip; files are in `videos/`.
 
-You need **read** access to this private repo (collaborator invite must be accepted).
+For very large totals, ZIP can be slow. Prefer per-file download or git + LFS if needed.
+
+**Option C — Clone with Git LFS**
+
+```bash
+git clone https://github.com/DJSharkApps/3abn-interview-dexter.git
+cd 3abn-interview-dexter
+git lfs install   # once per machine
+git lfs pull      # fetch the actual MP4 files from LFS
+```
+
+No login is required for this public repo over HTTPS.
+
+## Git LFS notes
+
+- `*.mp4` files are tracked with Git LFS (see `.gitattributes`).
+- **Public repos** on GitHub’s free plan have [Git LFS bandwidth and storage limits](https://docs.github.com/en/billing/managing-billing-for-git-large-file-storage/about-billing-for-git-large-file-storage). ~12 interview MP4s are usually fine for a one-time share; repeated large downloads can hit limits.
+- If `git clone` leaves tiny pointer files instead of videos, run `git lfs pull`.
 
 ---
 
-*DJSharkApps · private materials*
+*DJSharkApps · public interview materials*
