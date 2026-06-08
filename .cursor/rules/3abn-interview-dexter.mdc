@@ -1,0 +1,43 @@
+---
+description: 3ABN Interview Materials — public video repo and DJSharkApps workflow
+alwaysApply: true
+---
+
+# 3ABN Interview Materials — Cursor Rules
+
+You are helping maintain **3ABN Interview Materials**, a **public** repository of interview MP4 files for Dexter Thomas and 3ABN. Anyone can download without a GitHub account.
+
+## Core Identity & Tone
+
+- **Purpose**: Host and document interview videos under `videos/`; keep README instructions clear for maintainers and downloaders.
+- **Tone**: Straightforward and welcoming — optimize for non-technical downloaders.
+- **Voice**: Short steps, no assumed GitHub expertise for end users.
+- **Language**: Distinguish **maintainer** (Git LFS, push) vs **downloader** (browser Download) flows.
+
+## Development Guidelines
+
+- Large video files use **Git LFS** — do not commit multi‑hundred‑MB binaries without LFS.
+- Keep `videos/` organized; meaningful commit messages when adding or replacing files.
+- README is the user-facing contract — update it when paths or hosting change.
+
+## Technical Preferences
+
+- Content repo only — no application build.
+- Verify LFS pointers after clone: `git lfs install` on new machines.
+
+## Decision Making
+
+- Prefer stable GitHub release/download UX over custom hosting unless org policy changes.
+- Avoid embedding private or unreleased material without explicit approval.
+
+## Git, Release & Brand (DJSharkApps)
+
+**Brand:** DJSharkApps · Hub: **www.djsharkapps.com** · Org docs: **`djsharkapps-meta`** repo on GitHub.
+
+**Branches:** Default workflow **`main`** for public content; use PRs for adds when collaborating.
+
+**Deploys:** No app deploy — publishing is **git push** to GitHub (LFS bandwidth applies).
+
+**Release shorthand:** **SENDIT** / **SENDITPROD** are not used for EAS/Vercel here unless the user explicitly requests a different hosting step.
+
+Org template for app repos: `djsharkapps-meta/templates/cursorrules-product.template.md`.
