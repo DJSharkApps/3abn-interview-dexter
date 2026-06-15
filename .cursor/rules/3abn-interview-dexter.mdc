@@ -38,6 +38,6 @@ You are helping maintain **3ABN Interview Materials**, a **public** repository o
 
 **Deploys:** No app deploy — publishing is **git push** to GitHub (LFS bandwidth applies).
 
-**Release shorthand:** **SENDIT** / **SENDITPROD** are not used for EAS/Vercel here unless the user explicitly requests a different hosting step.
+**Release shorthand:** **SENDIT** / **SENDITPROD** are not used for EAS/Vercel here unless the user explicitly requests a different hosting step. For app repos, org playbook: [`djsharkapps-meta/docs/ci-cd/PATTERNS/SENDIT_PLAYBOOK.md`](https://github.com/DJSharkApps/djsharkapps-meta/blob/main/docs/ci-cd/PATTERNS/SENDIT_PLAYBOOK.md).
 
 Org template for app repos: `djsharkapps-meta/templates/cursorrules-product.template.md`.
