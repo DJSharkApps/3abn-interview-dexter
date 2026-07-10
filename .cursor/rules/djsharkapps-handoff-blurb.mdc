@@ -1,0 +1,14 @@
+---
+description: Session handoff blurbs — fenced code block copy format
+alwaysApply: true
+---
+
+# Handoff blurbs — copy format
+
+When delivering a **session handoff** or **end-of-session summary** to the operator (deploy status, branch state, next steps):
+
+1. **Wrap the full blurb in one markdown fenced code block** (triple backticks) so the operator can one-click copy.
+2. **Structured blurbs only** — summary, decisions, action items. Never paste full chat transcripts.
+3. Complements **`ho-blurb`** MCP, [agent-change-status](https://github.com/DJSharkApps/djsharkapps-meta/blob/dev/docs/operator/agent-change-status.md), and Obsidian (`obiwrite` / `save_obsidian_note`) — same structured shape, not transcripts.
+
+Lead with the **change-status table** when reporting work (what, branch, deploy state, action items).
