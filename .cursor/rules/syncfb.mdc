@@ -1,0 +1,43 @@
+---
+description: SYNCFB — refresh the current feature branch from origin/dev before execution or review
+alwaysApply: true
+---
+
+# SYNCFB — sync feature branch from `origin/dev`
+
+> **Bootstrap:** Copy to `.cursor/rules/syncfb.mdc` in every DJSharkApps repo. Keep aligned with [`STANDARDS/cloud-agent-handoff.md`](https://github.com/DJSharkApps/djsharkapps-meta/blob/main/STANDARDS/cloud-agent-handoff.md).
+
+Operator says **SYNCFB** / `syncfb` / "sync fb" / "refresh from dev".
+
+## Do
+
+```bash
+git fetch origin
+git merge origin/dev        # current feature branch
+```
+
+Then **report**: commits pulled in · files conflicted · or `already up to date`.
+On conflict: resolve, then re-run the repo's gates before any readiness verdict.
+
+## Never
+
+- **Never rebase.** The branch may already be pushed with an open PR; rebase forces a force-push.
+- **Never push** as part of SYNCFB — it is a local operation the operator inspects.
+- **Never stash** to clean the tree (Park Protocol).
+- **Never on `dev` / `beta` / `main`** — feature branches only.
+
+## When to run it
+
+| Moment | Why |
+|---|---|
+| Cloud Agent — **before executing a parked plan** | The agent writes against current APIs instead of a stale snapshot |
+| Local chat — **before `wip-RnP`** | Review / Bugbot / Security must judge the tree that will actually merge |
+| Before any ship verb | If `git rev-list --count HEAD..origin/dev` is non-zero |
+
+**Last write wins the review:** a `dev` merge *after* Bugbot or Security invalidates both. Merge first, review second.
+
+## Parked plans — merge code, then re-validate intent
+
+SYNCFB merges code, not intentions. After the merge, before writing code, re-read every file the plan names and report each item as **still valid · already done · renamed / moved · moot**. Do not execute until that report is in.
+
+Canonical: [`STANDARDS/cloud-agent-handoff.md`](https://github.com/DJSharkApps/djsharkapps-meta/blob/main/STANDARDS/cloud-agent-handoff.md)
