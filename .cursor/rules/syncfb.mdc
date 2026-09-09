@@ -7,17 +7,27 @@ alwaysApply: true
 
 > **Bootstrap:** Copy to `.cursor/rules/syncfb.mdc` in every DJSharkApps repo. Keep aligned with [`STANDARDS/cloud-agent-handoff.md`](https://github.com/DJSharkApps/djsharkapps-meta/blob/main/STANDARDS/cloud-agent-handoff.md).
 
-Operator says **SYNCFB** / `syncfb` / "sync fb" / "refresh from dev".
+Operator says **SYNCFB** / `syncfb` / "sync fb" / "refresh from dev". Also required **before `wip-RnP`** and before ship when behind (see below).
 
 ## Do
 
 ```bash
 git fetch origin
+git rev-list --count HEAD..origin/dev   # behind N
+```
+
+**Behind 0:** that **is** the SYNCFB result. Hand it back — `already up to date` (fetch: 0 commits behind `origin/dev`). Do **not** stay silent. Do **not** merge. The operator should see why the merge did not run.
+
+**Behind N (N > 0):**
+
+```bash
 git merge origin/dev        # current feature branch
 ```
 
-Then **report**: commits pulled in · files conflicted · or `already up to date`.
+Then **report**: commits pulled in · files conflicted.
 On conflict: resolve, then re-run the repo's gates before any readiness verdict.
+
+A fetch-only “I counted 0, so I skipped SYNCFB” with no spoken result is a miss.
 
 ## Never
 
@@ -25,19 +35,22 @@ On conflict: resolve, then re-run the repo's gates before any readiness verdict.
 - **Never push** as part of SYNCFB — it is a local operation the operator inspects.
 - **Never stash** to clean the tree (Park Protocol).
 - **Never on `dev` / `beta` / `main`** — feature branches only.
+- **Never swallow a zero fetch.** Behind 0 still gets a one-line SYNCFB report.
 
 ## When to run it
 
 | Moment | Why |
 |---|---|
 | Cloud Agent — **before executing a parked plan** | The agent writes against current APIs instead of a stale snapshot |
-| Local chat — **before `wip-RnP`** | Review / Bugbot / Security must judge the tree that will actually merge |
-| Before any ship verb | If `git rev-list --count HEAD..origin/dev` is non-zero |
+| Local chat — **before `wip-RnP`** | Fetch + count first. Review / Bugbot / Security must judge the tree that will actually merge. Behind 0 → report `already up to date` and continue. Behind N → merge, then review. |
+| Before any ship verb | If `git rev-list --count HEAD..origin/dev` is non-zero, merge. If it is 0, still say `already up to date` — then ship. |
 
 **Last write wins the review:** a `dev` merge *after* Bugbot or Security invalidates both. Merge first, review second.
 
 ## Parked plans — merge code, then re-validate intent
 
 SYNCFB merges code, not intentions. After the merge, before writing code, re-read every file the plan names and report each item as **still valid · already done · renamed / moved · moot**. Do not execute until that report is in.
+
+When the fetch is already even, skip the re-validate list — there is nothing new from `dev` to re-read. Still speak the `already up to date` line.
 
 Canonical: [`STANDARDS/cloud-agent-handoff.md`](https://github.com/DJSharkApps/djsharkapps-meta/blob/main/STANDARDS/cloud-agent-handoff.md)
